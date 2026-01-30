@@ -10,7 +10,8 @@ namespace APIAutomation.Services
 {
     internal class ProductAPIService
     {
-        // Cria variável para fazer chamadas GET e desserialização JSON
+
+        // Cria variável para fazer chamadas GET, POST e desserialização JSON
         private readonly GET _apiGET;
         private readonly POST _apiPOST;
         private readonly JsonSerializerOptions _jsonOptions;
@@ -27,7 +28,7 @@ namespace APIAutomation.Services
             };
         }
 
-        // Método para obter a lista de produtos
+        // Método para fazer uma requisição GET à API de produtos.
         public async Task<ProductListResponse> GetProductListAsync(string url)
         {
             var response = await _apiGET.GetResponseAsync(url);
@@ -46,7 +47,7 @@ namespace APIAutomation.Services
 
             return productList;
         }
-        
+        // Método para fazer uma requisição POST à API de produtos.
         public async Task<APIMessageResponse> PostToProductAPIAsync(string url, string jsonBody = null)
         {
             var response = await _apiPOST.PostResponseAsync(url, jsonBody);
@@ -58,6 +59,20 @@ namespace APIAutomation.Services
                 throw new Exception("Desserialização falhou: apiMessageResponse veio null.");
             }
             return apiMessageResponse;
+        }
+        // Método para fazer uma requisição GET à API de marcas.
+        public async Task<BrandListResponse> GetBrandListAsync(string url)
+        {
+            var response = await _apiGET.GetResponseAsync(url);
+            
+            var brandList = JsonSerializer.Deserialize<BrandListResponse>(response.Body, _jsonOptions);
+            
+            if (brandList == null)
+            {
+                throw new Exception("Desserialização falhou: brandList veio null.");
+            }
+
+            return brandList;
         }
     }
 
