@@ -14,9 +14,10 @@ class Program
         string url = "https://automationexercise.com/api/productsList";
 
         // Chama o método GetResponseAsync para obter a resposta da URL fornecida
-        string response = await apiGET.GetResponseAsync(url);
+        var response = await apiGET.GetResponseAsync(url);
 
-        Console.WriteLine(response);
+        Console.WriteLine($"O código retornado foi: {response.StatusCode}.");
+        Console.WriteLine(response.Body);
     }
 }
        

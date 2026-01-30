@@ -11,7 +11,7 @@ namespace APIAutomation.APIServices
     // e obter dados de servidores web
     internal class GET
     {
-        public async Task<string> GetResponseAsync(string url)
+        public async Task<(int StatusCode, string Body)> GetResponseAsync(string url)
         {
             // Cria uma instância de HttpClient
             using (HttpClient client = new HttpClient())
@@ -23,7 +23,7 @@ namespace APIAutomation.APIServices
                 
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                return "O código de status é: " + statusCode + "\n\n" + responseBody;
+                return (statusCode, responseBody);
                 
             }
         }
