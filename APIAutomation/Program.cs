@@ -30,6 +30,20 @@ class Program
             Console.WriteLine($"Product ID: {product.Id}, Name: {product.Name}, Price: {product.Price}, Brand: {product.Brand}, Category: {product.Category.Usertype}, {product.Category.Category}");
         }
 
+        POST apiPOST = new POST();
+
+        var postResponse = await apiPOST.PostResponseAsync(url);
+
+        var option = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        
+        APIMessageResponse apiMessageResponse = JsonSerializer.Deserialize<APIMessageResponse>(postResponse.Body, option);
+        Console.WriteLine($"POST request returned HTTP status code: {postResponse.StatusCode}");
+        Console.WriteLine($"Response Body do POST desserializado: {postResponse.Body}");
+        Console.WriteLine($"ResponseCode do JSON: {apiMessageResponse.ResponseCode}");
+        Console.WriteLine($"Response Body do POST: {apiMessageResponse.Message}");
+
+
+
     }
 }
        
