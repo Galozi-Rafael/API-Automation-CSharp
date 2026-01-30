@@ -12,12 +12,15 @@ namespace APIAutomation.Services
     {
         // Cria variável para fazer chamadas GET e desserialização JSON
         private readonly GET _apiGET;
+        private readonly POST _apiPOST;
         private readonly JsonSerializerOptions _jsonOptions;
 
         // Construtor da classe ProductAPIService
         public ProductAPIService()
         {
             _apiGET = new GET();
+            _apiPOST = new POST();
+
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -43,5 +46,19 @@ namespace APIAutomation.Services
 
             return productList;
         }
+        
+        public async Task<APIMessageResponse> PostToProductAPIAsync(string url, string jsonBody = null)
+        {
+            var response = await _apiPOST.PostResponseAsync(url, jsonBody);
+            
+            var apiMessageResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+            
+            if (apiMessageResponse == null)
+            {
+                throw new Exception("Desserialização falhou: apiMessageResponse veio null.");
+            }
+            return apiMessageResponse;
+        }
     }
+
 }

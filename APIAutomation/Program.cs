@@ -15,13 +15,15 @@ class Program
     {
         string url = "https://automationexercise.com/api/productsList";
 
+        #region Exercício 1 -GET
         // Cria uma instância do serviço de API de produtos.
         ProductAPIService productAPIService = new ProductAPIService();
         // Chama o método para obter a lista de produtosjá desserializada.
         ProductListResponse productList = await productAPIService.GetProductListAsync(url);
 
+        // Exibe o código de resposta e a contagem de produtos.
+        Console.WriteLine("--- Resultado da Requisição GET ---");
         Console.WriteLine($"O código retornado foi: {productList.ResponseCode}.");
-
         Console.WriteLine($"Foram encontrados {productList.Products.Count} produtos na lista.");
 
         // Exibe os detalhes de cada produto.
@@ -29,21 +31,18 @@ class Program
         {
             Console.WriteLine($"Product ID: {product.Id}, Name: {product.Name}, Price: {product.Price}, Brand: {product.Brand}, Category: {product.Category.Usertype}, {product.Category.Category}");
         }
+        #endregion
 
-        POST apiPOST = new POST();
-
-        var postResponse = await apiPOST.PostResponseAsync(url);
-
-        var option = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        #region Exercício 2 - POST
+        // Chama o método para fazer uma requisição POST.
         
-        APIMessageResponse apiMessageResponse = JsonSerializer.Deserialize<APIMessageResponse>(postResponse.Body, option);
-        Console.WriteLine($"POST request returned HTTP status code: {postResponse.StatusCode}");
-        Console.WriteLine($"Response Body do POST desserializado: {postResponse.Body}");
-        Console.WriteLine($"ResponseCode do JSON: {apiMessageResponse.ResponseCode}");
-        Console.WriteLine($"Response Body do POST: {apiMessageResponse.Message}");
+        APIMessageResponse postResponse = await productAPIService.PostToProductAPIAsync(url);
 
-
-
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST ---");
+        Console.WriteLine($"ResponseCode do JSON: {postResponse.ResponseCode}");
+        Console.WriteLine($"Response Body do POST: {postResponse.Message}");
+        #endregion
     }
 }
        
