@@ -50,10 +50,20 @@ class Program
 
         // Exibe o código de resposta e a contagem de marcas.
         Console.WriteLine("\n--- Resultado da Requisição GET - BrandList ---");
+        Console.WriteLine($"Foram encontradas: {brandList.Brands.Count} marcas.");
         foreach (var brand in brandList.Brands)
         {
             Console.WriteLine($"Brand ID: {brand.ID}, Brand: {brand.Brand}");
         }
+        #endregion
+
+        #region Exercício 4 - Requisição PUT e teste negativo
+        // Chama o método para fazer uma requisição PUT.
+        APIMessageResponse putResponse = await productAPIService.PutToProductAPIAsync(productUrl);
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição PUT ---");
+        Console.WriteLine($"ResponseCode do JSON: {putResponse.ResponseCode}");
+        Console.WriteLine($"Response Body do PUT: {putResponse.Message}");
         #endregion
 
     }

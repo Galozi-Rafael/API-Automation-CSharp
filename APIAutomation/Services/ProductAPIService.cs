@@ -14,6 +14,7 @@ namespace APIAutomation.Services
         // Cria variável para fazer chamadas GET, POST e desserialização JSON
         private readonly GET _apiGET;
         private readonly POST _apiPOST;
+        private readonly PUT _apiPUT;
         private readonly JsonSerializerOptions _jsonOptions;
 
         // Construtor da classe ProductAPIService
@@ -21,6 +22,7 @@ namespace APIAutomation.Services
         {
             _apiGET = new GET();
             _apiPOST = new POST();
+            _apiPUT = new PUT();
 
             _jsonOptions = new JsonSerializerOptions
             {
@@ -73,6 +75,20 @@ namespace APIAutomation.Services
             }
 
             return brandList;
+        }
+
+        public async Task<APIMessageResponse> PutToProductAPIAsync(string url, string jsonBody = null)
+        {
+            
+            var response = await _apiPUT.PutResponseAsync(url, jsonBody);
+            
+            var apiMessageResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+            
+            if (apiMessageResponse == null)
+            {
+                throw new Exception("Desserialização falhou: apiMessageResponse veio null.");
+            }
+            return apiMessageResponse;
         }
     }
 
