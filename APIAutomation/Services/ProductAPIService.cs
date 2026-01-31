@@ -76,7 +76,7 @@ namespace APIAutomation.Services
 
             return brandList;
         }
-
+        // Método para fazer uma requisição PUT à API de produtos.
         public async Task<APIMessageResponse> PutToProductAPIAsync(string url, string jsonBody = null)
         {
             
@@ -90,7 +90,7 @@ namespace APIAutomation.Services
             }
             return apiMessageResponse;
         }
-
+        // Método para fazer uma requisição POST à API de produtos com parâmetro de busca.
         public async Task<ProductListResponse> SearchProductAPIAsync(string url, string searchTerm)
         {
             var formData = new Dictionary<string, string>
@@ -101,6 +101,22 @@ namespace APIAutomation.Services
             var response = await _apiPOST.PostFormAsync(url, formData);
 
             ProductListResponse result = JsonSerializer.Deserialize<ProductListResponse>(response.Body, _jsonOptions);
+
+            if (result == null)
+            {
+                throw new Exception("Desserialização falhou: result veio null.");
+            }
+
+            return result;
+        }
+        // Método para fazer uma requisição POST à API de produtos sem parâmetros.
+        public async Task<APIMessageResponse> SearchProductWithouParamAPIAsync(string url)
+        {
+            var formData = new Dictionary<string, string>();
+
+            var response = await _apiPOST.PostFormAsync(url, formData);
+
+            APIMessageResponse result = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
 
             if (result == null)
             {
