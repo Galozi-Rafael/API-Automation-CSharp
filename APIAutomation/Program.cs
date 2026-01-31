@@ -68,8 +68,13 @@ class Program
 
         #region Exercício 5 - POST com Formulário
         string searchUrl = "https://automationexercise.com/api/searchProduct";
+        string searchTerm = "top";
+        var formData = new Dictionary<string, string>
+        {
+            { "search_product", searchTerm }
+        };
         // Chama o método para fazer uma requisição POST com dados de formulário.
-        ProductListResponse postSearchResponse = await productAPIService.SearchProductAPIAsync(searchUrl, "jeans");
+        ProductListResponse postSearchResponse = await productAPIService.SearchProductAPIAsync(searchUrl, formData);
 
         // Exibe o código de resposta e a mensagem retornada.
         Console.WriteLine("\n--- Resultado da Requisição POST com Formulário ---");
@@ -83,9 +88,9 @@ class Program
         #endregion
 
         #region Exercício 6 - POST com Formulário - Sem parâmetro obrigatório
-        string emptyForm = null;
+        var emptyForm = new Dictionary<string,string>();
         // Chama o método para fazer uma requisição POST com dados de formulário sem o parâmetro obrigatório.
-        APIMessageResponse postSearchNoParamResponse = await productAPIService.SearchProductWithouParamAPIAsync(searchUrl);
+        APIMessageResponse postSearchNoParamResponse = await productAPIService.SearchProductWithouParamAPIAsync(searchUrl, emptyForm);
 
         // Exibe o código de resposta e a mensagem retornada.
         Console.WriteLine("\n--- Resultado da Requisição POST com Formulário - Sem parâmetro obrigatório ---");
@@ -93,6 +98,9 @@ class Program
         Console.WriteLine($"Corpo da mensagem {postSearchNoParamResponse.Message}");
         #endregion
 
+        #region Exercício 7 - POST para verificar se usuário existe
+
+        #endregion
     }
 }
        

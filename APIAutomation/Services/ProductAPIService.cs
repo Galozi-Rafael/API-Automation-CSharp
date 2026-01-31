@@ -91,12 +91,9 @@ namespace APIAutomation.Services
             return apiMessageResponse;
         }
         // Método para fazer uma requisição POST à API de produtos com parâmetro de busca.
-        public async Task<ProductListResponse> SearchProductAPIAsync(string url, string searchTerm)
+        public async Task<ProductListResponse> SearchProductAPIAsync(string url, Dictionary<string, string> formData)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "search_product", searchTerm }
-            };
+            
 
             var response = await _apiPOST.PostFormAsync(url, formData);
 
@@ -110,9 +107,8 @@ namespace APIAutomation.Services
             return result;
         }
         // Método para fazer uma requisição POST à API de produtos sem parâmetros.
-        public async Task<APIMessageResponse> SearchProductWithouParamAPIAsync(string url)
+        public async Task<APIMessageResponse> SearchProductWithouParamAPIAsync(string url, Dictionary<string, string> formData)
         {
-            var formData = new Dictionary<string, string>();
 
             var response = await _apiPOST.PostFormAsync(url, formData);
 
