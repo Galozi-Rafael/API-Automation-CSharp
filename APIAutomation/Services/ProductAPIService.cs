@@ -90,6 +90,25 @@ namespace APIAutomation.Services
             }
             return apiMessageResponse;
         }
+
+        public async Task<ProductListResponse> SearchProductAPIAsync(string url, string searchTerm)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "search_product", searchTerm }
+            };
+
+            var response = await _apiPOST.PostFormAsync(url, formData);
+
+            ProductListResponse result = JsonSerializer.Deserialize<ProductListResponse>(response.Body, _jsonOptions);
+
+            if (result == null)
+            {
+                throw new Exception("Desserialização falhou: result veio null.");
+            }
+
+            return result;
+        }
     }
 
 }

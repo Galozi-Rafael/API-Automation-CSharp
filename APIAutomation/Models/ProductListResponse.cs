@@ -11,5 +11,10 @@ namespace APIAutomation.Models
         public int ResponseCode { get; set; }
 
         public List<Product> Products { get; set; }
+
+        public override string ToString()
+        {
+            return $"ResponseCode: {ResponseCode}, Products Count: {Products}";
+        }
     }
 }

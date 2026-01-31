@@ -66,6 +66,22 @@ class Program
         Console.WriteLine($"Response Body do PUT: {putResponse.Message}");
         #endregion
 
+        #region Exercício 5 - POST com Formulário
+        string searchUrl = "https://automationexercise.com/api/searchProduct";
+        // Chama o método para fazer uma requisição POST com dados de formulário.
+        ProductListResponse postSearchResponse = await productAPIService.SearchProductAPIAsync(searchUrl, "jeans");
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST com Formulário ---");
+        Console.WriteLine($"ResponseCode do JSON: {postSearchResponse.ResponseCode}");
+        Console.WriteLine($"Response Body do POST com Formulário: {postSearchResponse.Products.Count}");
+
+        foreach (var product in postSearchResponse.Products)
+        {
+            Console.WriteLine($"Product ID: {product.Id}, Name: {product.Name}, Price: {product.Price}, Brand: {product.Brand}, Category: {product.Category.Usertype}, {product.Category.Category}");
+        }
+        #endregion
+
     }
 }
        
