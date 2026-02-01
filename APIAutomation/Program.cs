@@ -99,7 +99,7 @@ class Program
         #endregion
 
         //Exercío 11 veio aqui primeiro por causa da necessidade de criar uma conta antes de testar os próximos exercícios.
-        #region Exercício 11
+        #region Exercício 11 - POST para criar nova conta
         // Cria uma instância do serviço de API de login.
         LoginAPI loginApi = new LoginAPI();
 
@@ -141,7 +141,7 @@ class Program
         Console.WriteLine($"Message: {result.Message}");
         // Exibe o email usado para criar a conta para futuro login.
         Console.WriteLine($"Email usado: {uniqueEmail}");
-        #endregion 
+        #endregion  -  
 
         #region Exercício 7 - POST para verificar se usuário existe
 
@@ -163,7 +163,7 @@ class Program
         Console.WriteLine($"Message: {loginResponse.Message}");
         #endregion
 
-        #region Exercício 8
+        #region Exercício 8 - Teste negativo para verificar login sem o campo Email
         // Prepara os dados para verificar o login.
         Dictionary<string, string> loginFormWithoutEmail = new Dictionary<string, string>
         {
@@ -179,7 +179,7 @@ class Program
         Console.WriteLine($"Message: {loginResponseWithoutEmail.Message}");
         #endregion
 
-        #region Exercício 9
+        #region Exercício 9 - Teste negativo para deletar usuário em endpoint de verificação de login
         // Chama o método para deletar o usuário criado.
         APIMessageResponse deleteUserResponse = await loginApi.DeleteUserAsync(verifyLoginUrl);
 
@@ -190,7 +190,7 @@ class Program
 
         #endregion
 
-        #region Exercício 10
+        #region Exercício 10 - Teste negativo para verificar login com dados inválidos
         // Prepara os dados para verificar o login.
         Dictionary<string, string> loginFormInvalidData = new Dictionary<string, string>
         {
@@ -205,7 +205,7 @@ class Program
         Console.WriteLine("\n--- Resultado da Requisição POST para Verificar Login ---");
         Console.WriteLine($"ResponseCode do JSON: {loginResponseInvalidData.ResponseCode}");
         Console.WriteLine($"Message: {loginResponseInvalidData.Message}");
-        #endregion
+        #endregion 
 
         #region Exercício 12
         #endregion
