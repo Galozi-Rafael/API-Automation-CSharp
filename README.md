@@ -34,7 +34,7 @@ O site utilizado para essa automação é um [e-commerce playground:](https://au
 - [x] API 4: PUT To All Brands List
 - [x] API 5: POST To Search Product
 - [x] API 6: POST To Search Product without search_product parameter
-- [ ] API 7: POST To Verify Login with valid details
+- [x] API 7: POST To Verify Login with valid details
 - [ ] API 8: POST To Verify Login without email parameter
 - [ ] API 9: DELETE To Verify Login
 - [ ] API 10: POST To Verify Login with invalid details
