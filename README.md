@@ -36,7 +36,7 @@ O site utilizado para essa automação é um [e-commerce playground:](https://au
 - [x] API 6: POST To Search Product without search_product parameter
 - [x] API 7: POST To Verify Login with valid details
 - [x] API 8: POST To Verify Login without email parameter
-- [ ] API 9: DELETE To Verify Login
+- [x] API 9: DELETE To Verify Login
 - [x] API 10: POST To Verify Login with invalid details
 - [x] API 11: POST To Create/Register User Account
 - [ ] API 12: DELETE METHOD To Delete User Account
