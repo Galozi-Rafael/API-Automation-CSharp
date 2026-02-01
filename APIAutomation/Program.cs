@@ -180,6 +180,14 @@ class Program
         #endregion
 
         #region Exercício 9
+        // Chama o método para deletar o usuário criado.
+        APIMessageResponse deleteUserResponse = await loginApi.DeleteUserAsync(verifyLoginUrl);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição DELETE para Deletar Usuário no API de Verificar Login ---");
+        Console.WriteLine($"ResponseCode do JSON: {deleteUserResponse.ResponseCode}");
+        Console.WriteLine($"Message: {deleteUserResponse.Message}");
+
         #endregion
 
         #region Exercício 10

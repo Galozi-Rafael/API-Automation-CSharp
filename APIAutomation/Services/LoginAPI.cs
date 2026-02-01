@@ -11,12 +11,14 @@ namespace APIAutomation.Services
     internal class LoginAPI
     {
         private readonly POST _apiPOST;
+        private readonly DELETE _apiDELETE;
         private readonly JsonSerializerOptions _jsonOptions;
 
         //  Construtor da classe LoginAPI
         public LoginAPI()
         {
             _apiPOST = new POST();
+            _apiDELETE = new DELETE();
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -71,6 +73,19 @@ namespace APIAutomation.Services
             var response = await _apiPOST.PostFormAsync(url, loginData);
             APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
             
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+            return apiResponse;
+        }
+
+        public async Task<APIMessageResponse> DeleteUserAsync(string url)
+        {
+            var response = await _apiDELETE.DeleteResponseAsync(url);
+
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+
             if (apiResponse == null)
             {
                 throw new Exception("Failed to deserialize API response.");
