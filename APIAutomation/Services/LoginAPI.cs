@@ -13,6 +13,7 @@ namespace APIAutomation.Services
         private readonly POST _apiPOST;
         private readonly JsonSerializerOptions _jsonOptions;
 
+        //  Construtor da classe LoginAPI
         public LoginAPI()
         {
             _apiPOST = new POST();
@@ -22,6 +23,7 @@ namespace APIAutomation.Services
             };
         }
 
+        // Método para criar uma conta
         public async Task<APIMessageResponse> CreateAccountAsync(string url, CreateAccountRequest Request)
         {
             Dictionary<string, string> formData = BuilCreateAccountForm(Request);
@@ -38,6 +40,7 @@ namespace APIAutomation.Services
             return apiResponse;
         }
 
+        // Método privado para construir o formulário de criação de conta
         private Dictionary<string, string> BuilCreateAccountForm(CreateAccountRequest request)
         {
             return new Dictionary<string, string>
@@ -60,6 +63,19 @@ namespace APIAutomation.Services
                 { "city", request.City },
                 { "mobile_number", request.MobileNumber }
             };
+        }
+
+        // Método para verificar login
+        public async Task<APIMessageResponse> VerifyLoginAsync(string url, Dictionary<string, string> loginData)
+        {
+            var response = await _apiPOST.PostFormAsync(url, loginData);
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+            
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+            return apiResponse;
         }
 
     }

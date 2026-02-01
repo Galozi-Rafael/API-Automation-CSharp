@@ -145,6 +145,22 @@ class Program
 
         #region Exercício 7 - POST para verificar se usuário existe
 
+        // Prepara os dados para verificar o login.
+        Dictionary<string, string> loginForm = new Dictionary<string, string>
+        {
+            { "email", uniqueEmail },
+            { "password", "123456" }
+        };
+
+        string verifyLoginUrl = "https://automationexercise.com/api/verifyLogin";
+
+        // Chama o método para verificar o login.
+        APIMessageResponse loginResponse = await loginApi.VerifyLoginAsync(verifyLoginUrl, loginForm);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST para Verificar Login ---");
+        Console.WriteLine($"ResponseCode do JSON: {loginResponse.ResponseCode}");
+        Console.WriteLine($"Message: {loginResponse.Message}");
         #endregion
 
         #region Exercício 8
