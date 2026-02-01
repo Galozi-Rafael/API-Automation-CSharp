@@ -164,6 +164,19 @@ class Program
         #endregion
 
         #region Exercício 8
+        // Prepara os dados para verificar o login.
+        Dictionary<string, string> loginFormWithoutEmail = new Dictionary<string, string>
+        {
+            { "password", "123456" }
+        };
+
+        // Chama o método para verificar o login faltando o campo do Email.
+        APIMessageResponse loginResponseWithoutEmail = await loginApi.VerifyLoginAsync(verifyLoginUrl, loginFormWithoutEmail);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST para Verificar Login ---");
+        Console.WriteLine($"ResponseCode do JSON: {loginResponseWithoutEmail.ResponseCode}");
+        Console.WriteLine($"Message: {loginResponseWithoutEmail.Message}");
         #endregion
 
         #region Exercício 9
