@@ -183,9 +183,21 @@ class Program
         #endregion
 
         #region Exercício 10
+        // Prepara os dados para verificar o login.
+        Dictionary<string, string> loginFormInvalidData = new Dictionary<string, string>
+        {
+            { "email", "invalidemailgiganteparadarerrado@deuruim.com" },
+            { "password", "passwordinvalidgiganteparadarerrado" }
+        };
+
+        // Chama o método para verificar o login como dados inválidos.
+        APIMessageResponse loginResponseInvalidData = await loginApi.VerifyLoginAsync(verifyLoginUrl, loginFormInvalidData);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST para Verificar Login ---");
+        Console.WriteLine($"ResponseCode do JSON: {loginResponseInvalidData.ResponseCode}");
+        Console.WriteLine($"Message: {loginResponseInvalidData.Message}");
         #endregion
-
-
 
         #region Exercício 12
         #endregion
