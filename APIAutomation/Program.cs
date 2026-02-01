@@ -98,8 +98,73 @@ class Program
         Console.WriteLine($"Corpo da mensagem {postSearchNoParamResponse.Message}");
         #endregion
 
+        //Exercío 11 veio aqui primeiro por causa da necessidade de criar uma conta antes de testar os próximos exercícios.
+        #region Exercício 11
+        // Cria uma instância do serviço de API de login.
+        LoginAPI loginApi = new LoginAPI();
+
+        string createAccountUrl = "https://automationexercise.com/api/createAccount";
+
+        // Gera um email único usando timestamp para evitar conflitos.
+        string uniqueEmail = $"email.teste.{DateTime.Now:yyyyMMddHHmmss}@example.com";
+
+        // Prepara os dados para criar uma nova conta.
+        CreateAccountRequest request = new CreateAccountRequest
+        {
+            Name = "Randolfe Teste",
+            Email = uniqueEmail,
+            Password = "123456",
+
+            Title = "Mr",
+            BirthDate = "01",
+            BirthMonth = "01",
+            BirthYear = "1990",
+
+            Firstname = "Rafael",
+            Lastname = "Galozi",
+            Company = "Empresa Teste",
+            Address1 = "Rua A, 123",
+            Address2 = "Apto 1",
+            Country = "Brazil",
+            Zipcode = "01000-000",
+            State = "SP",
+            City = "Sao Paulo",
+            MobileNumber = "11999999999"
+        };
+
+        // Chama o método para criar uma nova conta.
+        APIMessageResponse result = await loginApi.CreateAccountAsync(createAccountUrl, request);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição POST para Criar Conta ---");
+        Console.WriteLine($"ResponseCode do JSON: {result.ResponseCode}");
+        Console.WriteLine($"Message: {result.Message}");
+        // Exibe o email usado para criar a conta para futuro login.
+        Console.WriteLine($"Email usado: {uniqueEmail}");
+        #endregion 
+
         #region Exercício 7 - POST para verificar se usuário existe
 
+        #endregion
+
+        #region Exercício 8
+        #endregion
+
+        #region Exercício 9
+        #endregion
+
+        #region Exercício 10
+        #endregion
+
+
+
+        #region Exercício 12
+        #endregion
+
+        #region Exercício 13
+        #endregion
+
+        #region Exercício 14
         #endregion
     }
 }
