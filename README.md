@@ -39,7 +39,7 @@ O site utilizado para essa automação é um [e-commerce playground:](https://au
 - [x] API 9: DELETE To Verify Login
 - [x] API 10: POST To Verify Login with invalid details
 - [x] API 11: POST To Create/Register User Account
-- [ ] API 12: DELETE METHOD To Delete User Account
+- [x] API 12: DELETE METHOD To Delete User Account
 - [x] API 13: PUT METHOD To Update User Account
 - [x] API 14: GET user account detail by email
 
