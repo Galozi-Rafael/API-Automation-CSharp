@@ -41,12 +41,12 @@ O site utilizado para essa automação é um [e-commerce playground:](https://au
 - [x] API 11: POST To Create/Register User Account
 - [ ] API 12: DELETE METHOD To Delete User Account
 - [x] API 13: PUT METHOD To Update User Account
-- [ ] API 14: GET user account detail by email
+- [x] API 14: GET user account detail by email
 
 ## Arquitetura de pastas
 
 ```mermaid
-flowchart TD
+flowchart LR
 A[API-Automation-CSharp] --> B[APIAutomation]
 A --> C[README]
 A --> D[.gitignore]
