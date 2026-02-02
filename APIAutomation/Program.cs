@@ -207,7 +207,7 @@ class Program
         Console.WriteLine($"Message: {loginResponseInvalidData.Message}");
         #endregion
 
-        #region Exercício 13
+        #region Exercício 13 - PUT para atualizar conta criada
         string updateUrl = "https://automationexercise.com/api/updateAccount";
 
         // Prepara os dados para atualizar a conta.
@@ -241,10 +241,22 @@ class Program
         Console.WriteLine("\n--- Resultado da Requisição PUT para Atualizar Conta ---");
         Console.WriteLine($"ResponseCode do JSON: {updateResponse.ResponseCode}");
         Console.WriteLine($"Message: {updateResponse.Message}");
-        #endregion
+        #endregion - 
 
-        #region Exercício 14
-        #endregion
+        #region Exercício 14 - GET para obter detalhes da conta criada
+
+        string getAccountUrl = "https://automationexercise.com/api/getUserDetailByEmail";
+
+        // Chama o método para obter os detalhes da conta.
+        UserMessageResponse getAccountResponse = await loginApi.GetUserDetailsAsync(getAccountUrl, uniqueEmail);
+
+        // Exibe o código de resposta e os detalhes do usuário retornados.
+        Console.WriteLine("\n--- Resultado da Requisição GET para Obter Detalhes da Conta ---");
+        Console.WriteLine("ResponseCode do JSON: " + getAccountResponse.ResponseCode);
+        Console.WriteLine("User Details:");
+        Console.WriteLine($"ID: {getAccountResponse.User.Id}");
+        Console.WriteLine($"Name: {getAccountResponse.User}");
+        #endregion 
 
         // Exercíco 12 veio para o final porque ele deleta a conta: fechando o ciclo de vida de um registro.
         #region Exercício 12

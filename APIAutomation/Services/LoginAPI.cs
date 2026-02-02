@@ -13,6 +13,7 @@ namespace APIAutomation.Services
         private readonly POST _apiPOST;
         private readonly DELETE _apiDELETE;
         private readonly PUT _apiPUT;
+        private readonly GET _apiGET;
         private readonly JsonSerializerOptions _jsonOptions;
 
         //  Construtor da classe LoginAPI
@@ -21,6 +22,7 @@ namespace APIAutomation.Services
             _apiPOST = new POST();
             _apiDELETE = new DELETE();
             _apiPUT = new PUT();
+            _apiGET = new GET();
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -88,6 +90,24 @@ namespace APIAutomation.Services
             return apiResponse;
         }
 
+        // Método para obter detalhes do usuário
+        public async Task<UserMessageResponse> GetUserDetailsAsync(string url,string email)
+        {
+            string encodedEmail = Uri.EscapeDataString(email);
+
+            string finalUrl = $"{url}?email={encodedEmail}";
+
+            var response = await _apiGET.GetResponseAsync(finalUrl);
+                        
+            UserMessageResponse userResponse = JsonSerializer.Deserialize<UserMessageResponse>(response.Body, _jsonOptions);
+
+            if (userResponse == null)
+            {
+                throw new Exception("Failed to deserialize User details response.");
+            }
+            return userResponse;
+        }
+
         // Método privado para construir o formulário de criação/atualização de conta
         private Dictionary<string, string> BuilAccountDataForm(AccountRequest request)
         {
@@ -113,5 +133,6 @@ namespace APIAutomation.Services
             };
         }
 
+        
     }
 }
