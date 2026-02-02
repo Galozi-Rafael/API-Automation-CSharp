@@ -12,6 +12,7 @@ namespace APIAutomation.Services
     {
         private readonly POST _apiPOST;
         private readonly DELETE _apiDELETE;
+        private readonly PUT _apiPUT;
         private readonly JsonSerializerOptions _jsonOptions;
 
         //  Construtor da classe LoginAPI
@@ -19,6 +20,7 @@ namespace APIAutomation.Services
         {
             _apiPOST = new POST();
             _apiDELETE = new DELETE();
+            _apiPUT = new PUT();
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -26,9 +28,9 @@ namespace APIAutomation.Services
         }
 
         // Método para criar uma conta
-        public async Task<APIMessageResponse> CreateAccountAsync(string url, CreateAccountRequest Request)
+        public async Task<APIMessageResponse> CreateAccountAsync(string url, AccountRequest request)
         {
-            Dictionary<string, string> formData = BuilCreateAccountForm(Request);
+            Dictionary<string, string> formData = BuilAccountDataForm(request);
 
             var response = await _apiPOST.PostFormAsync(url, formData);
 
@@ -42,8 +44,52 @@ namespace APIAutomation.Services
             return apiResponse;
         }
 
-        // Método privado para construir o formulário de criação de conta
-        private Dictionary<string, string> BuilCreateAccountForm(CreateAccountRequest request)
+        // Método para verificar login
+        public async Task<APIMessageResponse> VerifyLoginAsync(string url, Dictionary<string, string> loginData)
+        {
+            var response = await _apiPOST.PostFormAsync(url, loginData);
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+            
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+            return apiResponse;
+        }
+
+        // Método para deletar usuário
+        public async Task<APIMessageResponse> DeleteUserAsync(string url)
+        {
+            var response = await _apiDELETE.DeleteResponseAsync(url);
+
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+            return apiResponse;
+        }
+
+        // Método para atualizar conta
+        public async Task<APIMessageResponse> UpdateAccountAsync(string url, AccountRequest request)
+        {
+            Dictionary<string, string> updateFormData = BuilAccountDataForm(request);
+
+            var response = await _apiPUT.PutFormAsync(url, updateFormData);
+
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+
+            return apiResponse;
+        }
+
+        // Método privado para construir o formulário de criação/atualização de conta
+        private Dictionary<string, string> BuilAccountDataForm(AccountRequest request)
         {
             return new Dictionary<string, string>
             {
@@ -65,32 +111,6 @@ namespace APIAutomation.Services
                 { "city", request.City },
                 { "mobile_number", request.MobileNumber }
             };
-        }
-
-        // Método para verificar login
-        public async Task<APIMessageResponse> VerifyLoginAsync(string url, Dictionary<string, string> loginData)
-        {
-            var response = await _apiPOST.PostFormAsync(url, loginData);
-            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
-            
-            if (apiResponse == null)
-            {
-                throw new Exception("Failed to deserialize API response.");
-            }
-            return apiResponse;
-        }
-
-        public async Task<APIMessageResponse> DeleteUserAsync(string url)
-        {
-            var response = await _apiDELETE.DeleteResponseAsync(url);
-
-            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
-
-            if (apiResponse == null)
-            {
-                throw new Exception("Failed to deserialize API response.");
-            }
-            return apiResponse;
         }
 
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace APIAutomation.Models
 {
-    internal class CreateAccountRequest
+    internal class AccountRequest
     {
         public string Name { get; set; }
         public string Email { get; set; }

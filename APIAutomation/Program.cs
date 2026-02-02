@@ -109,7 +109,7 @@ class Program
         string uniqueEmail = $"email.teste.{DateTime.Now:yyyyMMddHHmmss}@example.com";
 
         // Prepara os dados para criar uma nova conta.
-        CreateAccountRequest request = new CreateAccountRequest
+        AccountRequest request = new AccountRequest
         {
             Name = "Randolfe Teste",
             Email = uniqueEmail,
@@ -205,15 +205,49 @@ class Program
         Console.WriteLine("\n--- Resultado da Requisição POST para Verificar Login ---");
         Console.WriteLine($"ResponseCode do JSON: {loginResponseInvalidData.ResponseCode}");
         Console.WriteLine($"Message: {loginResponseInvalidData.Message}");
-        #endregion 
-
-        #region Exercício 12
         #endregion
 
         #region Exercício 13
+        string updateUrl = "https://automationexercise.com/api/updateAccount";
+
+        // Prepara os dados para atualizar a conta.
+        AccountRequest updateRequest = new AccountRequest
+        {
+            Name = "Randolfe Teste",
+            Email = uniqueEmail,
+            Password = "123456",
+
+            Title = "Mr",
+            BirthDate = "01",
+            BirthMonth = "01",
+            BirthYear = "1990",
+
+            Firstname = "Rafael",
+            Lastname = "Galozi",
+            Company = "Empresa Teste",
+            Address1 = "Rua A, 123",
+            Address2 = "Apto 1",
+            Country = "Brazil",
+            Zipcode = "01000-000",
+            State = "RJ",
+            City = "Rio de Janeiro",
+            MobileNumber = "11999999999"
+        };
+
+        // Chama o método para atualizar a conta.
+        APIMessageResponse updateResponse = await loginApi.UpdateAccountAsync(updateUrl, updateRequest);
+
+        // Exibe o código de resposta e a mensagem retornada.
+        Console.WriteLine("\n--- Resultado da Requisição PUT para Atualizar Conta ---");
+        Console.WriteLine($"ResponseCode do JSON: {updateResponse.ResponseCode}");
+        Console.WriteLine($"Message: {updateResponse.Message}");
         #endregion
 
         #region Exercício 14
+        #endregion
+
+        // Exercíco 12 veio para o final porque ele deleta a conta: fechando o ciclo de vida de um registro.
+        #region Exercício 12
         #endregion
     }
 }
