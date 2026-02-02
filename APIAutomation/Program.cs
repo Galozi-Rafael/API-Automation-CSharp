@@ -260,6 +260,25 @@ class Program
 
         // Exercíco 12 veio para o final porque ele deleta a conta: fechando o ciclo de vida de um registro.
         #region Exercício 12
+
+        // Criando o dicionário com os dados do formulário para deletar conta.
+        string email = uniqueEmail;
+        string password = "123456";
+        Dictionary<string, string> deleteFormData = new Dictionary<string, string>
+            {
+                { "email", email },
+                { "password", password }
+            };
+
+        string deleteAccountUrl = "https://automationexercise.com/api/deleteAccount";
+
+        // Chama o método para deletar a conta criada.
+        APIMessageResponse deleteAccountResponse = await loginApi.DeleteAccountFormAsync(deleteAccountUrl, deleteFormData);
+
+        Console.WriteLine("\n--- Resultado da Requisição POST para Deletar Conta ---");
+        Console.WriteLine($"ResponseCode do JSON: {deleteAccountResponse.ResponseCode}");
+        Console.WriteLine($"Message: {deleteAccountResponse.Message}");
+
         #endregion
     }
 }

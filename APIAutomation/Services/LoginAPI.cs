@@ -108,6 +108,21 @@ namespace APIAutomation.Services
             return userResponse;
         }
 
+        // Método para deletar conta com formulário
+        public async Task<APIMessageResponse> DeleteAccountFormAsync(string url, Dictionary<string, string> formData)
+        {
+            
+            var response = await _apiDELETE.DeleteFormAsync(url, formData);
+
+            APIMessageResponse apiResponse = JsonSerializer.Deserialize<APIMessageResponse>(response.Body, _jsonOptions);
+
+            if (apiResponse == null)
+            {
+                throw new Exception("Failed to deserialize API response.");
+            }
+            return apiResponse;
+        }
+
         // Método privado para construir o formulário de criação/atualização de conta
         private Dictionary<string, string> BuilAccountDataForm(AccountRequest request)
         {
